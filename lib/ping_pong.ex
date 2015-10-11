@@ -1,0 +1,2 @@
+defmodule PingPong do
+end
