@@ -22,5 +22,9 @@ defmodule PingPongTest do
     send pid, {:ping, self}
     send pid, {:ping_count, self}
     assert_receive {:ping_count, 2}
+    send pid, {:pong, self}
+    send pid, {:pong, self}
+    send pid, {:pong_count, self}
+    assert_receive {:pong_count, 2}
   end
 end

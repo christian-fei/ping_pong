@@ -19,8 +19,13 @@ defmodule PingPong do
       {:ping, pid} ->
         events = increment(:ping, events)
         send pid, :pong
+      {:pong, pid} ->
+        events = increment(:pong, events)
+        send pid, :ping
       {:ping_count, pid} ->
         send pid, {:ping_count, ping_count(events)}
+      {:pong_count, pid} ->
+        send pid, {:pong_count, pong_count(events)}
     end
     await(events)
   end
@@ -33,6 +38,15 @@ defmodule PingPong do
     Enum.reduce(events, 0, fn(event, acc) ->
       case event do
         :ping -> acc + 1
+        _     -> acc
+      end
+    end)
+  end
+
+  defp pong_count(events) do
+    Enum.reduce(events, 0, fn(event, acc) ->
+      case event do
+        :pong -> acc + 1
         _     -> acc
       end
     end)
