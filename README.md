@@ -1,19 +1,35 @@
 # PingPong
 
-**TODO: Add description**
+play ping pong with a genserver.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add ping_pong to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:ping_pong, "~> 0.0.1"}]
-        end
-
-  2. Ensure ping_pong is started before your application:
-
-        def application do
-          [applications: [:ping_pong]]
-        end
+```
+$> iex -S mix
+iex(1)> pid = spawn_link PingPong, :start, []
+#PID<0.117.0>
+iex(2)> send pid, {:ping, self}
+{:ping, #PID<0.115.0>}
+iex(3)> flush
+:pong
+:ok
+iex(4)> send pid, {:ping, self}
+{:ping, #PID<0.115.0>}
+iex(5)> flush
+:pong
+:ok
+iex(6)> send pid, {:pong, self}
+{:pong, #PID<0.115.0>}
+iex(7)> flush
+:ping
+:ok
+iex(8)> send pid, {:ping_count, self}
+{:ping_count, #PID<0.115.0>}
+iex(9)> flush
+{:ping_count, 2}
+:ok
+iex(10)> send pid, {:pong_count, self}
+{:pong_count, #PID<0.115.0>}
+iex(11)> flush
+{:pong_count, 1}
+:ok
+iex(12)>
+```
