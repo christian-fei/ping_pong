@@ -14,10 +14,27 @@ defmodule PingPong do
     await([])
   end
 
-  defp await(state) do
+  defp await(events) do
     receive do
-      {:ping, pid} -> send pid, :pong
+      {:ping, pid} ->
+        events = increment(:ping, events)
+        send pid, :pong
+      {:ping_count, pid} ->
+        send pid, {:ping_count, ping_count(events)}
     end
-    await(state)
+    await(events)
+  end
+
+  defp increment(type, events) do
+    events ++ [type]
+  end
+
+  defp ping_count(events) do
+    Enum.reduce(events, 0, fn(event, acc) ->
+      case event do
+        :ping -> acc + 1
+        _     -> acc
+      end
+    end)
   end
 end
