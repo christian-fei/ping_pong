@@ -1,6 +1,20 @@
 # PingPong
 
-play ping pong with a genserver.
+Play ping pong with a genserver.
+
+First install the needed dependencies:
+
+```
+$> mix deps.get
+```
+
+Then you can run the tests as:
+
+```
+$> mix test
+```
+
+Try it in the console:
 
 ```
 $> iex -S mix
