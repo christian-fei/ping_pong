@@ -3,7 +3,7 @@ defmodule PingPong do
   PingPong is an innovative module in the Elixir ecosystem to efficiently
   play ping pong, but with message passing. With this module you can learn
   more about Processes, which are the unit of concurrency of Erlang.
-  Processes share no memory with each other and can only communicate with 
+  Processes share no memory with each other and can only communicate with
   each other via message passing.
   """
 
@@ -31,7 +31,7 @@ defmodule PingPong do
   end
 
   defp add_event(type, events) do
-    events ++ [type]
+    [type | events]
   end
 
   defp count_by_type(type, events) do
